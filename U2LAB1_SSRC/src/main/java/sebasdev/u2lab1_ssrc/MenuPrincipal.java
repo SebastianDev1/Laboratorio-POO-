@@ -29,11 +29,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         JMInicio = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         JMNewPersona = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         JMLogOut = new javax.swing.JMenuItem();
         JMProfesor = new javax.swing.JMenu();
         JMAlumno = new javax.swing.JMenu();
@@ -53,6 +56,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
         JMInicio.setText("Inicio");
 
         jMenuItem1.setText("Persona");
@@ -65,7 +94,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         JMInicio.add(JMNewPersona);
-        JMInicio.add(jSeparator1);
 
         JMLogOut.setText("Cerrar Sesion");
         JMLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -89,11 +117,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -112,30 +150,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
     	String rol = Sesion.rolActivo;
  
     	switch (rol) {
-        	case "admin":
-                JMAlumno.setVisible(true);
-                JMProfesor.setVisible(true);
-                JMNewPersona.setVisible(true);
-                JMLogOut.setVisible(true);
-                break;
-        	case "profesor":
-                JMAlumno.setVisible(false);
-                JMProfesor.setVisible(true);
-                JMNewPersona.setVisible(false);
-                JMLogOut.setVisible(true);
-                break;
-        	case "alumno":
-                JMAlumno.setVisible(true);
-                JMProfesor.setVisible(false);
-                JMNewPersona.setVisible(false);
-                JMLogOut.setVisible(true);
-                break;
-            default:
+        	case "Admin" -> {
+                    JMAlumno.setVisible(true);
+                    JMProfesor.setVisible(true);
+                    JMNewPersona.setVisible(true);
+                    JMLogOut.setVisible(true);
+            }
+        	case "Profesor" -> {
+                    JMAlumno.setVisible(false);
+                    JMProfesor.setVisible(true);
+                    JMNewPersona.setVisible(false);
+                    JMLogOut.setVisible(true);
+            }
+        	case "Alumno" -> {
+                    JMAlumno.setVisible(true);
+                    JMProfesor.setVisible(false);
+                    JMNewPersona.setVisible(false);
+                    JMLogOut.setVisible(true);
+            }
+            default -> {
                 // Oculta todo si no está autenticado
                 JMAlumno.setVisible(false);
                 JMProfesor.setVisible(false);
-                JMLogOut.setVisible(false);
-                break;
+                //JMLogOut.setVisible(true);
+            }
     	}
 	}
     /**
@@ -182,7 +220,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

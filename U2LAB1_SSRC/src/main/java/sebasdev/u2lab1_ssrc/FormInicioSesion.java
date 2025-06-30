@@ -40,6 +40,7 @@ public class FormInicioSesion extends javax.swing.JFrame {
         PFClave = new javax.swing.JPasswordField();
         BtnAceptar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
+        MostrarClave = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,10 +64,17 @@ public class FormInicioSesion extends javax.swing.JFrame {
             }
         });
 
-        BtnCancelar.setText("Cancelar");
+        BtnCancelar.setText("Salir");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCancelarActionPerformed(evt);
+            }
+        });
+
+        MostrarClave.setText("Mostrar Contraseña");
+        MostrarClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarClaveActionPerformed(evt);
             }
         });
 
@@ -80,22 +88,22 @@ public class FormInicioSesion extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(34, Short.MAX_VALUE)
+                        .addContainerGap(81, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(JLabelPassword)
+                            .addComponent(JLabelUser))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(89, 89, 89)
-                                .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(JLabelPassword)
-                                    .addComponent(JLabelUser))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(PFClave, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TFUser, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                            .addComponent(PFClave, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TFUser, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MostrarClave))))
+                .addContainerGap(101, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,34 +118,70 @@ public class FormInicioSesion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLabelPassword)
                     .addComponent(PFClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MostrarClave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                    .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
-        String usuario = TFUser.getText();
+        String usuario = TFUser.getText().trim();
         String clave = new String (PFClave.getPassword());
-        String rol = "Admin";
+        String rol = null;
         
-        Usuario u = new Usuario ("Admin" , "123" , rol);
-        if(u.validar(usuario, clave)){
+        Usuario u = new Usuario (usuario , clave , rol);
+        if ((usuario.isEmpty() || clave.isEmpty())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un Usuario y una contraseña", "Error",javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if("Admin".equals(usuario) && "123".equals(clave)){
+            rol = "Admin";
             Sesion.usuarioActivo = usuario;
+            Sesion.rolActivo = rol;
             JOptionPane.showMessageDialog(this, "Bienvenido "+ usuario);
             this.dispose();
-        }else 
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+            new MenuPrincipal().setVisible(true);
+        }else if("Profesor".equals(usuario) && "4321".equals(clave)){
+            rol = "Profesor";
+            Sesion.usuarioActivo = usuario;
+            Sesion.rolActivo = rol;
+            JOptionPane.showMessageDialog(this, "Bienvenido "+ usuario);
+            this.dispose();
+            new MenuPrincipal().setVisible(true); 
+        }else if("Alumno".equals(usuario) && "123".equals(clave)){
+            rol = "Alumno";
+            Sesion.usuarioActivo = usuario;
+            Sesion.rolActivo = rol;
+            JOptionPane.showMessageDialog(this, "Bienvenido "+ usuario);
+            this.dispose();
+            new MenuPrincipal().setVisible(true); 
+        }else{
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas","Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+        if (rol != null) {
+            Sesion.usuarioActivo = usuario;
+            Sesion.rolActivo = rol;
+        }
     }//GEN-LAST:event_BtnAceptarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
+    private void MostrarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarClaveActionPerformed
+        if(MostrarClave.isSelected()){
+            PFClave.setEchoChar((char) 0);
+        }else{
+            PFClave.setEchoChar('*');
+        }
+    }//GEN-LAST:event_MostrarClaveActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -179,6 +223,7 @@ public class FormInicioSesion extends javax.swing.JFrame {
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JLabel JLabelPassword;
     private javax.swing.JLabel JLabelUser;
+    private javax.swing.JCheckBox MostrarClave;
     private javax.swing.JPasswordField PFClave;
     private javax.swing.JTextField TFUser;
     private javax.swing.JLabel jLabel1;

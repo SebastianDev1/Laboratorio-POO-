@@ -8,6 +8,10 @@ package sebasdev.u2lab1_ssrc;
 import java.util.ArrayList;
 import java.util.List;
 public class GestorPersona {
+
+    static List<Persona> listaPersonas() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 	private List<Persona> lista;
 	public GestorPersona() {
     	this.lista = new ArrayList<>();
@@ -36,5 +40,11 @@ public class GestorPersona {
 	public void cargarDesdeArchivo(String ruta) {
     	lista = ArchivoHelper.cargarPersonasCSV(ruta);
 	}
+        public void guardarEnJSON(String ruta){
+            ArchivoHelper.guardarComoJSON(lista, ruta);
+        }
+        public void CargarJSON(String ruta){
+            lista = ArchivoHelper.cargarDesdeJSON(ruta);
+        }
 }
 

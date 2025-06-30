@@ -8,11 +8,24 @@ package sebasdev.u2lab1_ssrc;
  *
  * @author sebas
  */
+
 import java.io.*;
 import java.util.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.GsonBuilder;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
  
 public class ArchivoHelper {
- 
+        
+        
 	public static void guardarPersonasCSV(List<Persona> personas, String ruta) {
     	try (PrintWriter pw = new PrintWriter(new FileWriter(ruta))) {
         	for (Persona p : personas) {
@@ -48,4 +61,24 @@ public class ArchivoHelper {
     	}
         return lista;
 	}
+        
+        public static <T> void guardarComoJSON(List<T> datos, String rutaArchivo) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter(rutaArchivo)) {
+            gson.toJson(datos, writer);
+            System.out.println("Datos guardados en JSON correctamente en: " + rutaArchivo);
+        } catch (IOException e) {
+            System.err.println("Error al guardar como JSON: " + e.getMessage());
+        }
+    }
+        public static List<Persona> cargarDesdeJSON(String rutaArchivo) {
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader(rutaArchivo)) {
+            Type listType = new TypeToken<List<Persona>>(){}.getType();
+            return gson.fromJson(reader, listType);
+        } catch (IOException e) {
+            System.err.println("Error al cargar el archivo JSON: " + e.getMessage());
+            return null;
+        }
+    }
 }

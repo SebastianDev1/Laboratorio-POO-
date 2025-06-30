@@ -1,6 +1,7 @@
 
 package sebasdev.u2lab1_ssrc;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -11,12 +12,15 @@ import javax.swing.JOptionPane;
 public class FormPersona extends javax.swing.JFrame {
 
     private javax.swing.table.DefaultTableModel modeloTabla;
+    private javax.swing.JComboBox<String> CBTipoGuardado;
+    
     
     private void limpiarCampos(){
         txtCedula.setText("");
         txtNombre.setText("");
         txtCorreo.setText("");
         CBTipo.setSelectedIndex(0);
+        //CBTipoGuardado.setSelectedIndex(0);
     }
     
     
@@ -37,13 +41,19 @@ public class FormPersona extends javax.swing.JFrame {
                 txtCedula.setText((String) modeloTabla.getValueAt (fila, 0));
                 txtNombre.setText((String) modeloTabla.getValueAt (fila, 1));
                 txtCorreo.setText((String) modeloTabla.getValueAt (fila, 2));
-                CBTipo.setSelectedItem((String) modeloTabla.getValueAt (fila, 3));
+                txtCarrera.setText((String) modeloTabla.getValueAt (fila, 3));
+                CBTipo.setSelectedItem((String) modeloTabla.getValueAt (fila, 4));
             }
         }
     });
     
+    
     CBTipo.setModel(new javax.swing.DefaultComboBoxModel<> (new String[] {"Alumno", "Profesor"}));
+    
+
+    //CBTipoGuardado.setModel(new javax.swing.DefaultComboBoxModel <> (new String [] {"Archivo CSV", "Archivo JSON", "MONGO DB"}));
     }
+    
     
     
     public class AppContext{
@@ -88,12 +98,16 @@ public class FormPersona extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         txtCedula = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
+        txtCarrera = new javax.swing.JTextField();
         JBGuardar = new javax.swing.JButton();
         JBCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jBEliminar = new javax.swing.JButton();
         CBTipo = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        CBTIpoGuardado = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -159,6 +173,15 @@ public class FormPersona extends javax.swing.JFrame {
                 "Cédula", "Nombre", "Correo", "Tipo", "Carrera/Tiitulo"
             }
         ));
+        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTable1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setHeaderValue("Cédula");
@@ -182,34 +205,54 @@ public class FormPersona extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Guardar como: ");
+
+        CBTIpoGuardado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBTIpoGuardado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBTIpoGuardadoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Carrera");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                            .addComponent(txtCedula)
-                            .addComponent(txtNombre)
-                            .addComponent(CBTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(JBGuardar)
-                        .addGap(46, 46, 46)
-                        .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addComponent(JBCancelar)))
-                .addContainerGap(53, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(CBTIpoGuardado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CBTipo, 0, 293, Short.MAX_VALUE)
+                            .addComponent(txtCarrera)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(68, 68, 68)
+                            .addComponent(JBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(90, 90, 90)
+                            .addComponent(JBCancelar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(27, 27, 27)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,39 +269,68 @@ public class FormPersona extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(CBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(CBTIpoGuardado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBEliminar)
                     .addComponent(JBGuardar)
-                    .addComponent(JBCancelar)
-                    .addComponent(jBEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBCancelar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
-
+    
     private void JBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarActionPerformed
+        
         String cedula = txtCedula.getText();
         String nombre = txtNombre.getText();
         String correo = txtCorreo.getText();
+        String carrera = txtCarrera.getText();
         String tipo = (String) CBTipo.getSelectedItem();
+        //String tiposave = (String) CBTipoGuardado.getSelectedItem();
         if(cedula.isEmpty() || nombre.isEmpty() || correo.isEmpty() ){
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
             return;
         }
+        String formato = (String) CBTipoGuardado.getSelectedItem();
+        List<Persona> personas = GestorPersona.listaPersonas(); // o como sea que accedas a los datos
+
+        switch (formato) {
+            case "CSV" -> {
+                ArchivoHelper.guardarPersonasCSV(personas, "personas.csv");
+                JOptionPane.showMessageDialog(this, "Guardado como CSV exitosamente.");
+            }
+
+            case "JSON" -> {
+                ArchivoHelper.guardarComoJSON(personas, "personas.json");
+                JOptionPane.showMessageDialog(this, "Guardado como JSON exitosamente.");
+            }
+
+            case "MongoDB" -> // Aquí iría tu implementación futura
+                JOptionPane.showMessageDialog(this, "Funcionalidad MongoDB aún no implementada.");
+        }
        Persona nuevaPersona;
        if("Alumno".equals(tipo)){
-           nuevaPersona = new Alumno(cedula, nombre, correo, "Carrera Default");
+           nuevaPersona = new Alumno(cedula, nombre, correo, carrera);
        }else{
            nuevaPersona = new Profesor(cedula, nombre, correo, "Titulo Default");
        }
@@ -289,6 +361,14 @@ public class FormPersona extends javax.swing.JFrame {
     private void CBTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CBTipoActionPerformed
+
+    private void CBTIpoGuardadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTIpoGuardadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBTIpoGuardadoActionPerformed
+
+    private void jTable1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1AncestorAdded
 
     /**
      * @param args the command line arguments
@@ -326,6 +406,7 @@ public class FormPersona extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CBTIpoGuardado;
     private javax.swing.JComboBox<String> CBTipo;
     private javax.swing.JButton JBCancelar;
     private javax.swing.JButton JBGuardar;
@@ -336,11 +417,14 @@ public class FormPersona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JTextField txtCarrera;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
