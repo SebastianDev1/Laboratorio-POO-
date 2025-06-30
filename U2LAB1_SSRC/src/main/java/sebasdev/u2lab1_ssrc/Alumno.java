@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package sebasdev.u2lab1_ssrc;
 
 /**
@@ -10,7 +7,8 @@ package sebasdev.u2lab1_ssrc;
  */
 public class Alumno extends Persona {
 	private String carrera;
-	public Alumno(String cedula, String nombres, String correo, String carrera) {
+	
+        public Alumno(String cedula, String nombres, String correo, String carrera) {
     	super(cedula, nombres, correo);
     	this.carrera = carrera;
 	}

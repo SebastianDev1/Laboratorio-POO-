@@ -17,7 +17,7 @@ public class U2LAB1_SSRC {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });*/
-       FormPersona secion =new FormPersona();
+       MenuPrincipal secion =new MenuPrincipal();
        secion.setVisible(true);
         //MenuPrincipal menu = new MenuPrincipal();
         //menu.setVisible(true);

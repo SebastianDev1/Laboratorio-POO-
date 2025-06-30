@@ -15,6 +15,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        aplicarPermisos();
     }
 
     /**
@@ -67,6 +68,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JMInicio.add(jSeparator1);
 
         JMLogOut.setText("Cerrar Sesion");
+        JMLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMLogOutActionPerformed(evt);
+            }
+        });
         JMInicio.add(JMLogOut);
 
         jMenuBar1.add(JMInicio);
@@ -94,9 +100,44 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JMNewPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMNewPersonaActionPerformed
-        // TODO add your handling code here:
+        new FormPersona().setVisible(true);
     }//GEN-LAST:event_JMNewPersonaActionPerformed
 
+    private void JMLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMLogOutActionPerformed
+        Sesion.usuarioActivo="";
+        new FormInicioSesion().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_JMLogOutActionPerformed
+    private void aplicarPermisos() {
+    	String rol = Sesion.rolActivo;
+ 
+    	switch (rol) {
+        	case "admin":
+                JMAlumno.setVisible(true);
+                JMProfesor.setVisible(true);
+                JMNewPersona.setVisible(true);
+                JMLogOut.setVisible(true);
+                break;
+        	case "profesor":
+                JMAlumno.setVisible(false);
+                JMProfesor.setVisible(true);
+                JMNewPersona.setVisible(false);
+                JMLogOut.setVisible(true);
+                break;
+        	case "alumno":
+                JMAlumno.setVisible(true);
+                JMProfesor.setVisible(false);
+                JMNewPersona.setVisible(false);
+                JMLogOut.setVisible(true);
+                break;
+            default:
+                // Oculta todo si no está autenticado
+                JMAlumno.setVisible(false);
+                JMProfesor.setVisible(false);
+                JMLogOut.setVisible(false);
+                break;
+    	}
+	}
     /**
      * @param args the command line arguments
      */

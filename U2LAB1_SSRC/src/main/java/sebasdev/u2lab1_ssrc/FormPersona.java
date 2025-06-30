@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package sebasdev.u2lab1_ssrc;
 
 import javax.swing.JOptionPane;
@@ -13,9 +10,6 @@ import javax.swing.JOptionPane;
  */
 public class FormPersona extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormPersona
-     */
     private javax.swing.table.DefaultTableModel modeloTabla;
     
     private void limpiarCampos(){

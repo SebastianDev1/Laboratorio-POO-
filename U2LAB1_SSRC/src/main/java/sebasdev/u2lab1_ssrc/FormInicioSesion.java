@@ -124,12 +124,14 @@ public class FormInicioSesion extends javax.swing.JFrame {
         String usuario = TFUser.getText();
         String clave = new String (PFClave.getPassword());
         String rol = "Admin";
+        
         Usuario u = new Usuario ("Admin" , "123" , rol);
         if(u.validar(usuario, clave)){
             Sesion.usuarioActivo = usuario;
             JOptionPane.showMessageDialog(this, "Bienvenido "+ usuario);
             this.dispose();
-        }else JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+        }else 
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
     }//GEN-LAST:event_BtnAceptarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed

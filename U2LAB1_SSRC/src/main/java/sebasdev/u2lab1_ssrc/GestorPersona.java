@@ -4,10 +4,7 @@
  */
 package sebasdev.u2lab1_ssrc;
 
-/**
- *
- * @author sebas
- */
+
 import java.util.ArrayList;
 import java.util.List;
 public class GestorPersona {
